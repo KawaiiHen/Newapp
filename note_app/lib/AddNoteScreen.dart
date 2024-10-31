@@ -25,7 +25,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   void _saveNote() {
     if (_titleController.text.isEmpty || _contentController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Both fields are required!')),
+        SnackBar(content: Text('Both fields are required!')),
       );
       return;
     }

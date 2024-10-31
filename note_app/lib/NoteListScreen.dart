@@ -80,37 +80,35 @@ class _NoteListScreenState extends State<NoteListScreen> {
   }
 
   Widget _createNoteWidget(Map<String, String> note) {
-    return Center(
-      child: ListTile(
-        leading: Icon(Icons.note),
-        title: Text(
-          note['title'] ?? '',
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-        subtitle: Text(
-          note['content'] ?? '',
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-        onTap: () => _addOrEditNote(note),
-        onLongPress: () {
-          showMenu(
-            context: context,
-            position: RelativeRect.fill,
-            items: [
-              PopupMenuItem(
-                child: const Text('Edit'),
-                onTap: () => _addOrEditNote(note),
-              ),
-              PopupMenuItem(
-                child: const Text('Delete'),
-                onTap: () => _confirmDelete(note),
-              ),
-            ],
-          );
-        },
+    return ListTile(
+      leading: Icon(Icons.note),
+      title: Text(
+        note['title'] ?? '',
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
+      subtitle: Text(
+        note['content'] ?? '',
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+      onTap: () => _addOrEditNote(note),
+      onLongPress: () {
+        showMenu(
+          context: context,
+          position: RelativeRect.fill,
+          items: [
+            PopupMenuItem(
+              child: Text('Edit'),
+              onTap: () => _addOrEditNote(note),
+            ),
+            PopupMenuItem(
+              child: Text('Delete'),
+              onTap: () => _confirmDelete(note),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -118,18 +116,18 @@ class _NoteListScreenState extends State<NoteListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Note Management'),
+        title: Text('Note Management'),
       ),
       body: notes.isEmpty
-          ? const Center(child: Text("No notes yet"))
+          ? Center(child: Text("No notes yet, please add one"))
           : ListView.separated(
               itemCount: notes.length,
               itemBuilder: (context, index) => _createNoteWidget(notes[index]),
-              separatorBuilder: (context, index) => const Divider(),
+              separatorBuilder: (context, index) => Divider(),
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _addOrEditNote(null),
-        child: const Icon(Icons.add),
+        child: Icon(Icons.add),
       ),
     );
   }
